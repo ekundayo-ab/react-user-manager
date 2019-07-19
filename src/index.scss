@@ -1,0 +1,25 @@
+@import './sharedStyles/variables.scss';
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Muli Regular'), local('Muli-Regular'),
+       url('assets/fonts/Muli/Muli-Regular.ttf') format('truetype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Muli", Arial, Helvetica, sans-serif
+}
+
+h1, h2, h3, p, input, button {
+  margin: 0;
+  padding: 0;
+}
+
+input, button {
+  outline: none;
+  border-radius: $border-radius-base !important;
+}
