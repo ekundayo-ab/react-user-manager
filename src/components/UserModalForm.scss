@@ -1,0 +1,30 @@
+@import '../sharedStyles/variables';
+
+.user-modal-form {
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  z-index: 2;
+  position: relative;
+  background: $white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: black;
+  top: 0;
+  bottom: 0;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.errored-form {
+  color: $sp-secondary-coral;
+  font-weight: bold;
+}

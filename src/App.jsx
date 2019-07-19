@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import UserList from './components/UserList';
+import UserModalForm from './components/UserModalForm';
+
 
 function App() {
+  const [modalState, setModalState] = useState(false);
+
   return (
     <div>
-      Hello World!
+      <Navbar />
+      <UserList handleModal={setModalState} />
+      { modalState && <UserModalForm handleModal={setModalState} />}
     </div>
   );
 }

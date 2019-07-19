@@ -1,0 +1,29 @@
+@import '../sharedStyles/variables';
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding:10px;
+  border-bottom: 4px solid $sp-primary-blue;
+  color: $sp-secondary-dark-gray;
+
+  .brand {
+    width: 100px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .content {
+    padding-left: 20px;
+
+    h1 {
+      font-weight: 700;
+    }
+
+    p {
+      font-weight: 600;
+    }
+  }
+}

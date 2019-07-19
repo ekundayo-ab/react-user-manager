@@ -21,5 +21,58 @@ h1, h2, h3, p, input, button {
 
 input, button {
   outline: none;
-  border-radius: $border-radius-base !important;
+}
+
+.btn {
+  box-sizing: border-box;
+  color: $white;
+  font-size: 1rem;
+  padding: 5px 10px;
+  box-shadow: $box-shadow-style;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-primary {
+  background: $sp-primary-blue;
+  border-color: $sp-primary-blue;
+
+  &:hover, &:active {
+    background: darken($sp-primary-blue, 10%);
+    border-color: darken($sp-primary-blue, 10%);
+  }
+}
+
+.btn-secondary {
+  background: $sp-secondary-coral;
+  border-color: $sp-secondary-coral;
+
+  &:hover, &:active {
+    background: darken($sp-secondary-coral, 10%);
+    border-color: darken($sp-secondary-coral, 10%);
+  }
+}
+
+.form-control {
+  select, &, input {
+    width: 100%;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  input {
+    border: none;
+    border-bottom: 2px solid lighten($sp-secondary-dark-gray, 50%);
+    border-radius: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    &:active, &:focus {
+      border-bottom-color: $sp-secondary-dark-gray;
+    }
+  }
+
 }
