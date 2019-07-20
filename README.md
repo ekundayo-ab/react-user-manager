@@ -20,7 +20,7 @@ The managed users are not persisted to a database, they are stored in the browse
 
 ### Screenshots
 **All users**
-![All Users](screenshots/all_users.png?raw=true "All User")
+![All Users](screenshots/all-users.png?raw=true "All User")
 
 **Add a new user**
-![Add New User](screenshots/add_new_user.png?raw=true "Add New User")
+![Add New User](screenshots/add-new-user.png?raw=true "Add New User")
