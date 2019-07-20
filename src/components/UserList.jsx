@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './UserList.scss';
 import UserCard from './UserCard';
 
-export default function UserList({ handleModal, setUsers, users }) {
+export default function UserList({ handleModal, setUserToEdit, setEditMode, setUsers, users }) {
   const handleDelete = (evt, userId) => {
     // eslint-disable-next-line no-alert, no-restricted-globals
     if (!confirm('Are you sure you want to remove this user?')) {
@@ -18,13 +18,20 @@ export default function UserList({ handleModal, setUsers, users }) {
     setUsers(usersInLS);
   };
 
+  const handleEdit = (evt, userId) => {
+    const userToEdit = users.find(user => user.id === userId);
+    setEditMode(true);
+    setUserToEdit(userToEdit);
+    handleModal(true);
+  };
+
   return (
     <div className="user-list">
       <hr />
       <button
         type="button"
         className="add btn btn-primary"
-        onClick={() => handleModal(true)}
+        onClick={() => { handleModal(true); return setUserToEdit({}); }}
       >
         Add New User
       </button>
@@ -35,8 +42,17 @@ export default function UserList({ handleModal, setUsers, users }) {
       <hr />
 
       {
-        users.map(user =>
-          <UserCard key={user.id} user={user} handleDelete={handleDelete} />)
+        users.length
+          ? users.map(user =>
+            (
+              <UserCard
+                key={user.id}
+                user={user}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+              />
+            ))
+          : <h3><b><i>No users yet!</i></b></h3>
       }
 
     </div>
@@ -46,5 +62,7 @@ export default function UserList({ handleModal, setUsers, users }) {
 UserList.propTypes = {
   handleModal: PropTypes.func.isRequired,
   setUsers: PropTypes.func.isRequired,
+  setUserToEdit: PropTypes.func.isRequired,
+  setEditMode: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

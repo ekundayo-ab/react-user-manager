@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 
 import './UserModalForm.scss';
 
-export default function UserModalForm({ handleModal, setUsers }) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState('');
-  const [status, setStatius] = useState('');
+export default function UserModalForm({
+  handleModal,
+  setUsers,
+  setEditMode,
+  userToEdit,
+  editMode,
+}) {
+  const [firstName, setFirstName] = useState(userToEdit.firstName || '');
+  const [lastName, setLastName] = useState(userToEdit.lastName || '');
+  const [email, setEmail] = useState(userToEdit.email || '');
+  const [role, setRole] = useState(userToEdit.role || '');
+  const [status, setStatus] = useState(userToEdit.status || '');
 
   const [requiredError, setRequiredError] = useState(false);
   const [uniqueMailError, setUniqueMailError] = useState(false);
@@ -22,19 +28,34 @@ export default function UserModalForm({ handleModal, setUsers }) {
     }
     setRequiredError(false);
 
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+    let users = JSON.parse(localStorage.getItem('users')) || [];
 
-    const existingUser = users.find(user =>
-      user.email.toLowerCase().trim() === email.toLowerCase().trim());
-    if (existingUser) {
+    // We can use this as their ID since the email is unique for each user
+    const userId = email.split('@')[0].toLowerCase().trim();
+
+    const existingUser = users.find(user => user.id === userId);
+
+    if (editMode) {
+      users = users.map((user) => {
+        if (user.id === userToEdit.id) {
+          return { id: userId, firstName, lastName, email, role, status };
+        }
+        return user;
+      });
+    }
+
+    if (!editMode && existingUser) {
       setUniqueMailError(true);
       return;
     }
-    setUniqueMailError(false);
 
-    // We can use this as their ID since the email is unique for each user
-    const userId = email.split('@')[0];
-    users.push({ id: userId, firstName, lastName, email, role, status });
+    if (!editMode) {
+      users.push({ id: userId, firstName, lastName, email, role, status });
+    }
+
+    setUniqueMailError(false);
+    setEditMode(false);
+    handleModal(false);
     localStorage.setItem('users', JSON.stringify(users));
     setUsers(users);
   };
@@ -101,7 +122,7 @@ export default function UserModalForm({ handleModal, setUsers }) {
           <select
             className="form-control"
             name="status"
-            onChange={evt => setStatius(evt.target.value)}
+            onChange={evt => setStatus(evt.target.value)}
             value={status}
           >
             <option value="">--Select a status--</option>
@@ -126,4 +147,14 @@ export default function UserModalForm({ handleModal, setUsers }) {
 UserModalForm.propTypes = {
   handleModal: PropTypes.func.isRequired,
   setUsers: PropTypes.func.isRequired,
+  setEditMode: PropTypes.func.isRequired,
+  userToEdit: PropTypes.shape({
+    id: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.string,
+    status: PropTypes.string,
+  }).isRequired,
+  editMode: PropTypes.bool.isRequired,
 };

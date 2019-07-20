@@ -7,6 +7,8 @@ import UserModalForm from './components/UserModalForm';
 function App() {
   const [modalState, setModalState] = useState(false);
   const [users, setUsers] = useState(JSON.parse(localStorage.getItem('users')) || []);
+  const [userToEdit, setUserToEdit] = useState({});
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <div>
@@ -16,10 +18,20 @@ function App() {
         handleModal={setModalState}
         users={users}
         setUsers={setUsers}
+        setUserToEdit={setUserToEdit}
+        setEditMode={setEditMode}
       />
 
       {modalState
-        && <UserModalForm handleModal={setModalState} setUsers={setUsers} />}
+        && (
+          <UserModalForm
+            handleModal={setModalState}
+            setUsers={setUsers}
+            userToEdit={userToEdit}
+            editMode={editMode}
+            setEditMode={setEditMode}
+          />
+        )}
     </div>
   );
 }
