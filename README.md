@@ -1,5 +1,5 @@
 # User Manager
-An application for managing users.
+An application for managing users. View it live here https://user-manager.netlify.com
 
 The application serves as an interface for performing CRUD operations on a `user` resource.
 
