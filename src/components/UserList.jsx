@@ -41,19 +41,21 @@ export default function UserList({ handleModal, setUserToEdit, setEditMode, setU
       <h2>All Users</h2>
       <hr />
 
-      {
-        users.length
-          ? users.map(user =>
-            (
-              <UserCard
-                key={user.id}
-                user={user}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
-              />
-            ))
-          : <h3><b><i>No users yet!</i></b></h3>
-      }
+      <div className="users">
+        {
+          users.length
+            ? users.map(user =>
+              (
+                <UserCard
+                  key={user.id}
+                  user={user}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                />
+              ))
+            : <h3><b><i>No users yet!</i></b></h3>
+        }
+      </div>
 
     </div>
   );

@@ -17,7 +17,7 @@ export default function UserCard({ handleDelete, handleEdit, user }) {
         className="btn btn-primary card-item"
         onClick={evt => handleEdit(evt, user.id)}
       >Edit
-      </button>
+      </button>&nbsp;&nbsp;
       <button
         type="button"
         className="btn btn-secondary card-item"

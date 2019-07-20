@@ -6,4 +6,24 @@
   button.add {
     font-size: 1.5rem;
   }
+
+  .users {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+
+    > * {
+      flex: 0 0 20%;
+    }
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+
+      .card-item {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
+  }
 }
