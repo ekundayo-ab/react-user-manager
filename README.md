@@ -1,7 +1,7 @@
 # User Manager
-A basic application for managing users.
+An application for managing users.
 
-The application serves as an interface for performing CRUD operations on a `user` resource
+The application serves as an interface for performing CRUD operations on a `user` resource.
 
 ### NB
 The managed users are not persisted to a database, they are stored in the browser's localstorage.
@@ -18,6 +18,9 @@ The managed users are not persisted to a database, they are stored in the browse
 - To run project do `npm start`
 - To build for production do `npm run build`
 
-### Testing
-
 ### Screenshots
+**All users**
+![All Users](screenshots/all_users.png?raw=true "All User")
+
+**Add a new user**
+![Add New User](screenshots/add_new_user.png?raw=true "Add New User")
