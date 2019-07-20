@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './UserCard.scss';
 
-export default function UserCard({ user }) {
+export default function UserCard({ handleDelete, user }) {
   return (
     <div className="user-card">
       <h3 className="card-item">{user.firstName} {user.lastName}</h3>
@@ -13,7 +13,12 @@ export default function UserCard({ user }) {
       <p className="card-item"><b>Status:</b> {user.status}</p>
 
       <button type="button" className="btn btn-primary card-item">Edit</button>
-      <button type="button" className="btn btn-secondary card-item">Delete</button>
+      <button
+        type="button"
+        className="btn btn-secondary card-item"
+        onClick={evt => handleDelete(evt, user.id)}
+      >Delete
+      </button>
     </div>
   );
 }
@@ -27,4 +32,5 @@ UserCard.propTypes = {
     role: PropTypes.string,
     status: PropTypes.string,
   }).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };

@@ -4,7 +4,20 @@ import PropTypes from 'prop-types';
 import './UserList.scss';
 import UserCard from './UserCard';
 
-export default function UserList({ handleModal, users }) {
+export default function UserList({ handleModal, setUsers, users }) {
+  const handleDelete = (evt, userId) => {
+    // eslint-disable-next-line no-alert, no-restricted-globals
+    if (!confirm('Are you sure you want to remove this user?')) {
+      return;
+    }
+
+    let usersInLS = JSON.parse(localStorage.getItem('users')) || [];
+    usersInLS = users.filter(user => user.id !== userId);
+    localStorage.setItem('users', JSON.stringify(usersInLS));
+
+    setUsers(usersInLS);
+  };
+
   return (
     <div className="user-list">
       <hr />
@@ -21,7 +34,10 @@ export default function UserList({ handleModal, users }) {
       <h2>All Users</h2>
       <hr />
 
-      { users.map(user => <UserCard key={user.id} user={user} />)}
+      {
+        users.map(user =>
+          <UserCard key={user.id} user={user} handleDelete={handleDelete} />)
+      }
 
     </div>
   );
@@ -29,5 +45,6 @@ export default function UserList({ handleModal, users }) {
 
 UserList.propTypes = {
   handleModal: PropTypes.func.isRequired,
+  setUsers: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

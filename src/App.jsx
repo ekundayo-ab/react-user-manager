@@ -11,7 +11,13 @@ function App() {
   return (
     <div>
       <Navbar />
-      <UserList handleModal={setModalState} users={users} />
+
+      <UserList
+        handleModal={setModalState}
+        users={users}
+        setUsers={setUsers}
+      />
+
       {modalState
         && <UserModalForm handleModal={setModalState} setUsers={setUsers} />}
     </div>
