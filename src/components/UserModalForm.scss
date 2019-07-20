@@ -11,6 +11,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  .errored-form {
+    color: $sp-secondary-coral;
+    font-weight: bold;
+  }
+
+  .divider {
+    margin-top: 10px;
+  }
 }
 
 .modal-overlay {
@@ -22,9 +31,4 @@
   bottom: 0;
   opacity: 0.8;
   z-index: 1;
-}
-
-.errored-form {
-  color: $sp-secondary-coral;
-  font-weight: bold;
 }

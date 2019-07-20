@@ -3,23 +3,40 @@ import PropTypes from 'prop-types';
 
 import './UserModalForm.scss';
 
-export default function UserModalForm({ handleModal }) {
+export default function UserModalForm({ handleModal, setUsers }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [status, setStatius] = useState('');
 
-  const [error, setError] = useState(false);
+  const [requiredError, setRequiredError] = useState(false);
+  const [uniqueMailError, setUniqueMailError] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!firstName || !lastName || !email || !role || !status) {
-      setError(true);
-    } else {
-      setError(false);
+      setRequiredError(true);
+      return;
     }
+    setRequiredError(false);
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    const existingUser = users.find(user =>
+      user.email.toLowerCase().trim() === email.toLowerCase().trim());
+    if (existingUser) {
+      setUniqueMailError(true);
+      return;
+    }
+    setUniqueMailError(false);
+
+    // We can use this as their ID since the email is unique for each user
+    const userId = email.split('@')[0];
+    users.push({ id: userId, firstName, lastName, email, role, status });
+    localStorage.setItem('users', JSON.stringify(users));
+    setUsers(users);
   };
 
   return (
@@ -34,7 +51,8 @@ export default function UserModalForm({ handleModal }) {
 
       <div className="user-modal-form">
         <h3>Add New User</h3>
-        {error && <p className="errored-form">All fields must be filled!</p>}
+        {requiredError && <p className="errored-form">All fields must be filled!</p>}
+        {uniqueMailError && <p className="errored-form">User with that email exists!</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-control">
@@ -59,9 +77,10 @@ export default function UserModalForm({ handleModal }) {
 
           <div className="form-control">
             <input
-              type="text"
+              type="email"
               placeholder="Email"
               name="email"
+              required
               value={email}
               onChange={evt => setEmail(evt.target.value)}
             />
@@ -90,6 +109,7 @@ export default function UserModalForm({ handleModal }) {
             <option value="inactive">InActive</option>
           </select>
 
+          <div className="divider" />
           <button type="submit" className="btn btn-primary">Add</button>&nbsp;&nbsp;
           <button
             type="button"
@@ -105,4 +125,5 @@ export default function UserModalForm({ handleModal }) {
 
 UserModalForm.propTypes = {
   handleModal: PropTypes.func.isRequired,
+  setUsers: PropTypes.func.isRequired,
 };

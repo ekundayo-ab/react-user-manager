@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './UserList.scss';
 import UserCard from './UserCard';
 
-export default function UserList({ handleModal }) {
+export default function UserList({ handleModal, users }) {
   return (
     <div className="user-list">
       <hr />
@@ -21,11 +21,13 @@ export default function UserList({ handleModal }) {
       <h2>All Users</h2>
       <hr />
 
-      <UserCard />
+      { users.map(user => <UserCard key={user.id} user={user} />)}
+
     </div>
   );
 }
 
 UserList.propTypes = {
   handleModal: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
